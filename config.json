@@ -1,0 +1,10 @@
+{
+	"DB": "/etc/wireguard/clients/peers.json",
+	"ClientConfigsPath": "/etc/wireguard/clients",
+	"Interface": "wg0",
+	"PublicKey": "------------------------",
+	"Endpoint": "194.77.290.74:55155",
+	"allowedIPs": "10.31.0.0/16, 10.30.0.0/16",
+	"clientIP": "10.31.0.{}",
+	"-DNS": "10.31.0.1"
+}

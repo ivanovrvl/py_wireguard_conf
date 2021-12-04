@@ -48,7 +48,7 @@ def add_peer(args):
     p = t.get(peer.name == args.name)
     if p is None:
         key_pair = wgexec.generate_keypair()
-        new_id = t.all()[-1].doc_id + 2 if len(t.all())>0 else 2
+        new_id = t.all()[-1].doc_id + 2 if len(t.all())>0 else config['StartIP'] if config.get('StartIP') is not None else 2
         p = {
             'name': args.name,
             'key': key_pair[0],

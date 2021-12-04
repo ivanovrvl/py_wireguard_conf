@@ -17,10 +17,12 @@ with open('config.json', 'r') as f:
     config = json.load(f)
 
 interface = config['Interface']
+prefix = config['ClientConfigPrefix']
+if prefix is None: prefis = ""
 
 def create_client_config(data:dict):
     name = data['name']
-    client = wgconfig.WGConfig(os.path.join(config['ClientConfigsPath'], f'{name}.conf'))
+    client = wgconfig.WGConfig(os.path.join(config['ClientConfigsPath'], f'{prefix}{name}.conf'))
     client.add_attr(None, 'PrivateKey', data['key'])
     client.add_attr(None, 'Address', data['IP'])
     dns = config.get('DNS')
@@ -68,7 +70,7 @@ def add_peer(args):
 
         qr = qrcode.QRCode()
         qr.add_data('\n'.join(client.lines))
-        with open(os.path.join(config['ClientConfigsPath'], f'{args.name}.qrcode'), 'w') as f:
+        with open(os.path.join(config['ClientConfigsPath'], f'{prefix}{args.name}.qrcode'), 'w') as f:
             qr.print_ascii(out=f)
 
     else:

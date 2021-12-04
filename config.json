@@ -2,7 +2,7 @@
 	"DB": "/etc/wireguard/clients/peers.json",
 	"ClientConfigsPath": "/etc/wireguard/clients",
 	"ClientConfigPrefix": null,
-	"ClientStartIP": 2,	
+	"ClientStartIP": null,	
 	"Interface": "wg0",
 	"PublicKey": "------------------------",
 	"Endpoint": "194.77.290.74:55155",

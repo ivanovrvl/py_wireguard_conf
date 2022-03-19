@@ -43,7 +43,7 @@ def wg_set(p:dict):
     os.system(f"wg set {interface} peer {p['pub']} allowed-ips {get_allowed_ip(p)}")
 
 def chmod(filename:str):
-    os.chmod(filename, 0o3400)
+    os.chmod(filename, 0o400)
 
 def add_peer(args):
     peer = Query()

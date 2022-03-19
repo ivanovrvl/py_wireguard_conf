@@ -42,6 +42,9 @@ def get_allowed_ip(p:dict):
 def wg_set(p:dict):
     os.system(f"wg set {interface} peer {p['pub']} allowed-ips {get_allowed_ip(p)}")
 
+def chmod(filename:str):
+    os.chmod(filename, 0x700)
+
 def add_peer(args):
     peer = Query()
     t = db.table('peers')
@@ -62,6 +65,7 @@ def add_peer(args):
 
         client = create_client_config(p)
         client.write_file()
+        chmod(client.filename)
 
         wg_set(p)
 
@@ -70,8 +74,10 @@ def add_peer(args):
 
         qr = qrcode.QRCode()
         qr.add_data('\n'.join(client.lines))
-        with open(os.path.join(config['ClientConfigsPath'], f'{prefix}{args.name}.qrcode'), 'w') as f:
+        filename = os.path.join(config['ClientConfigsPath'], f'{prefix}{args.name}.qrcode')
+        with open(filename, 'w') as f:
             qr.print_ascii(out=f)
+        chmod(filename)
 
     else:
         print('Already exists')
@@ -131,10 +137,4 @@ server.read_file()
 with TinyDB(config['DB'], storage=CachingMiddleware(JSONStorage)) as db:
     args = parse_args()
     args.func(args)
-
-
-
-
-
-
 
